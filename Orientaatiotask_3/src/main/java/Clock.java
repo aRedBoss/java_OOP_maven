@@ -1,38 +1,27 @@
 public class Clock {
     private static Clock instance;
-    private int time;
+    private int currentTime;
 
+    // Private constructor to ensure no external instantiation
     private Clock() {
-        time = 0;
+        currentTime = 0;
     }
 
-    public static synchronized Clock getInstance() {
+    // Singleton instance getter
+    public static Clock getInstance() {
         if (instance == null) {
             instance = new Clock();
         }
         return instance;
     }
 
+    // Method to get the current time
     public int getTime() {
-        return time;
+        return currentTime;
     }
 
-    public void setTime(int newTime) {
-        time = newTime;
-    }
-
-    public void incrementTime(int increment) {
-        time += increment;
-    }
-
-    public static void main(String[] args) {
-        Clock clock = Clock.getInstance();
-
-        clock.setTime(5);
-        System.out.println("Current Time: " + clock.getTime());
-
-        clock.incrementTime(10);
-        System.out.println("Current Time after increment: " + clock.getTime());
+    // Method to advance the time
+    public void advanceTime(int timeUnits) {
+        currentTime += timeUnits;
     }
 }
-

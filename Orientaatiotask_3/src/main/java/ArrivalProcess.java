@@ -1,29 +1,24 @@
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.List;
 
 public class ArrivalProcess {
     private Random random;
+    private String eventType;
 
-    public ArrivalProcess() {
-        random = new Random();
+    // Constructor that initializes the event type and random generator
+    public ArrivalProcess(String eventType) {
+        this.eventType = eventType;
+        this.random = new Random();
     }
 
-    public void generateArrivalEvents(ArrayList<Integer> eventList, int numEvents) {
-        for (int i = 0; i < numEvents; i++) {
-            int interval = random.nextInt(10) + 1;
-            eventList.add(interval);
-        }
-    }
-
-    public static void main(String[] args) {
-        ArrivalProcess arrivalProcess = new ArrivalProcess();
-        ArrayList<Integer> eventList = new ArrayList<>();
-
-        arrivalProcess.generateArrivalEvents(eventList, 10);
-
-        System.out.println("Generated Arrival Events:");
-        for (int event : eventList) {
-            System.out.println("Arrival Interval: " + event);
+    // Generate events and add them to the event list
+    public void generateEvents(int numberOfEvents, List<Event> eventList) {
+        int currentTime = 0;
+        for (int i = 0; i < numberOfEvents; i++) {
+            // Random interval between 1 and 5 time units
+            int interval = random.nextInt(5) + 1; // 1 to 5 units
+            currentTime += interval;
+            eventList.add(new Event(currentTime)); // Create event with the current time
         }
     }
 }
