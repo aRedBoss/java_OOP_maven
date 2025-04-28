@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.NoteController"
+      spacing="10.0" alignment="CENTER">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <TextField fx:id="titleField" promptText="Enter note title" />
+    <TextArea fx:id="contentArea" promptText="Enter note content" />
+    <Button text="Add" onAction="#handleAddNote"/>
+    <ListView fx:id="notesListView" prefHeight="200.0" />
+</VBox>
+
+
