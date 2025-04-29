@@ -11,7 +11,6 @@ public class CurrencyModel {
     public CurrencyModel() {
         currencies = new HashMap<>();
 
-        // Fetch currencies from the database using DAO
         CurrencyDAO dao = new CurrencyDAO();
         for (Currency currency : dao.getAllCurrencies()) {
             currencies.put(currency.getAbbreviation(), currency);
@@ -23,7 +22,7 @@ public class CurrencyModel {
     }
 
     public double convert(double amount, Currency from, Currency to) {
-        // Convert to USD first, then to target currency
+
         double amountInUSD = amount / from.getRateToUSD();
         return amountInUSD * to.getRateToUSD();
     }
