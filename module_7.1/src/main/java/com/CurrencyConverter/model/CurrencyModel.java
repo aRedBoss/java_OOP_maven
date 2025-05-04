@@ -26,4 +26,16 @@ public class CurrencyModel {
         double amountInUSD = amount / from.getRateToUSD();
         return amountInUSD * to.getRateToUSD();
     }
+
+    public void addCurrency(Currency currency) {
+        CurrencyDAO dao = new CurrencyDAO();
+        if (!dao.currencyExists(currency.getAbbreviation())) {
+            dao.insertCurrency(currency);
+            currencies.put(currency.getAbbreviation(), currency);
+        } else {
+            System.out.println("Currency already exists: " + currency.getAbbreviation());
+        }
+    }
+
+
 }

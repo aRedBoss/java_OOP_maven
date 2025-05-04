@@ -51,16 +51,43 @@ public class CurrencyConverterView extends Application {
             }
         });
 
+        // Additional UI for adding a new currency
+        Label addLabel = new Label("Add New Currency:");
+        TextField nameField = new TextField();
+        nameField.setPromptText("Abbreviation (e.g. USD)");
+
+        TextField rateField = new TextField();
+        rateField.setPromptText("Rate (e.g. 1.0)");
+
+        Button addButton = new Button("Add Currency");
+        addButton.setOnAction(e -> {
+            String abbreviation = nameField.getText().trim();
+            try {
+                double rate = Double.parseDouble(rateField.getText().trim());
+                // Using the updated Currency constructor
+                Currency currency = new Currency(abbreviation, rate);
+                controller.getModel().addCurrency(currency);
+                fromComboBox.getItems().add(currency);
+                toComboBox.getItems().add(currency);
+                nameField.clear();
+                rateField.clear();
+            } catch (NumberFormatException ex) {
+                showAlert("Invalid rate. Please enter a numeric value.");
+            }
+        });
+
         VBox layout = new VBox(10,
                 instructions,
                 amountLabel, amountField,
                 fromLabel, fromComboBox,
                 toLabel, toComboBox,
                 convertButton,
-                resultLabel, resultField);
+                resultLabel, resultField,
+                addLabel, nameField, rateField, addButton
+        );
         layout.setPadding(new Insets(20));
 
-        Scene scene = new Scene(layout, 400, 400);
+        Scene scene = new Scene(layout, 400, 500);
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
