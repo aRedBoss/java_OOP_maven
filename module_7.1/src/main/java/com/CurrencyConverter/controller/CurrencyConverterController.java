@@ -8,6 +8,12 @@ public class CurrencyConverterController {
 
     public CurrencyConverterController() {
         this.model = new CurrencyModel();
+
+        // ✅ Preload default currencies
+        model.addCurrency(new Currency("USD", "US Dollar", 1.0));
+        model.addCurrency(new Currency("EUR", "Euro", 0.85));
+        model.addCurrency(new Currency("JPY", "Japanese Yen", 110.0));
+        model.addCurrency(new Currency("GBP", "British Pound", 0.75));
     }
 
     public CurrencyModel getModel() {
@@ -18,4 +24,3 @@ public class CurrencyConverterController {
         return model.convert(amount, from, to);
     }
 }
-

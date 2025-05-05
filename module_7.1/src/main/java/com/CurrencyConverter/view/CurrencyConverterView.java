@@ -1,7 +1,9 @@
 package com.CurrencyConverter.view;
 
 import com.CurrencyConverter.controller.CurrencyConverterController;
+import com.CurrencyConverter.database.TransactionDAO;
 import com.CurrencyConverter.model.Currency;
+import com.CurrencyConverter.model.Transaction;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -44,8 +46,13 @@ public class CurrencyConverterView extends Application {
                     showAlert("Please select both currencies.");
                     return;
                 }
+
                 double result = controller.convert(amount, from, to);
                 resultField.setText(String.format("%.2f", result));
+
+                Transaction transaction = new Transaction(amount, from, to);
+                new TransactionDAO().insertTransaction(transaction);
+
             } catch (NumberFormatException ex) {
                 showAlert("Invalid amount. Please enter a numeric value.");
             }
@@ -64,7 +71,6 @@ public class CurrencyConverterView extends Application {
             String abbreviation = nameField.getText().trim();
             try {
                 double rate = Double.parseDouble(rateField.getText().trim());
-                // Using the updated Currency constructor
                 Currency currency = new Currency(abbreviation, rate);
                 controller.getModel().addCurrency(currency);
                 fromComboBox.getItems().add(currency);

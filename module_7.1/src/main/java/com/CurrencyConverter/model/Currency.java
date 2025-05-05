@@ -1,6 +1,7 @@
 package com.CurrencyConverter.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Currency")
@@ -14,18 +15,20 @@ public class Currency {
     @Column(name = "rate_to_usd")
     private double rateToUSD;
 
-    // Default constructor
-    public Currency() {
-    }
+    @OneToMany(mappedBy = "source")
+    private List<Transaction> sourceTransactions;
 
-    // Constructor accepting abbreviation and rateToUSD
+    @OneToMany(mappedBy = "destination")
+    private List<Transaction> destinationTransactions;
+
+    public Currency() {}
+
     public Currency(String abbreviation, double rateToUSD) {
         this.abbreviation = abbreviation;
         this.rateToUSD = rateToUSD;
-        this.name = abbreviation;  // If you want the name to be the same as abbreviation, or you can update as needed
+        this.name = abbreviation;
     }
 
-    // Constructor with all fields (already present)
     public Currency(String abbreviation, String name, double rateToUSD) {
         this.abbreviation = abbreviation;
         this.name = name;
